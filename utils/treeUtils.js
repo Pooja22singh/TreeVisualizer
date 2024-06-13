@@ -1,4 +1,4 @@
-import { getHeight } from "../Tree";
+import { getHeight } from "../Tree/tree.js";
 
 export const DEFAULT_CONFIG = {
     radius: 20,

@@ -1,31 +1,44 @@
-import { constructBinaryTree } from "./Tree";
-import { drawBinaryTreeOnCanvas } from "./utils/canvasUtils";
-import { parseInput } from "./utils/treeUtils";
+import { constructBinaryTree } from "./Tree/tree.js";
+import { drawBinaryTreeOnCanvas } from "./utils/canvasUtils.js";
+import { parseInput } from "./utils/treeUtils.js";
 
 
 const init = () => {
     const textarea = document.querySelector('.nodes');
-    const currInput = textarea.value;
+    let currInput = "";
+    textarea.focus();
     const applyBtn = document.querySelector('.applyBtn');
     const clearBtn = document.querySelector('.clearBtn');
     const canvas = document.querySelector("canvas");
+
+    const clearCanvas = () => {
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    const drawTree = (value) => {
+        if (value == "null") {
+            alert("Enter valid input");
+            return;
+        }
+        clearCanvas();
+        const root = constructBinaryTree(parseInput(value));
+        drawBinaryTreeOnCanvas(canvas, root);
+    }
+
     const bindEventListeners = () => {
         applyBtn.addEventListener('click', () => {
-            if (currInput) return;
-            init(currInput);
+            currInput = textarea.value.trim();
+            if (!currInput) return;
+            drawTree(currInput);
         });
 
         clearBtn.addEventListener('click', () => {
             textarea.value = '';
             clearCanvas();
         });
+        window.addEventListener('resize', () => { if (!currInput) return; drawTree(currInput) })
     }
-    const redraw = (value) => {
-        clearCanvas();
-        const root = constructBinaryTree(parseInput(value));
-        drawBinaryTreeOnCanvas(canvas, root);
-    }
-    window.addEventListener('resize', () => redraw(currInput))
     bindEventListeners();
 }
 

@@ -5,7 +5,7 @@ function TreeNode(val, left = null, right = null) {
 }
 
 export const getHeight = (root) => {
-    if (root == null)
+    if (root == null || root == "null")
         return 0;
     const lh = getHeight(root.left);
     const rh = getHeight(root.right);
@@ -21,18 +21,22 @@ export const constructBinaryTree = (arr) => {
     let i = 1;
     while (i < arr.length) {
         const currentParent = queue.shift();
-        if (arr[i] != null && arr[i] != "") {
-            const leftChild = new TreeNode(arr[i]);
+        let val = arr[i].trim();
+        if (val !== "null" && val !== "") {
+            const leftChild = new TreeNode(val);
+            if(currentParent)
             currentParent.left = leftChild
-            queue.push(leftChild);
+            currentParent && queue.push(leftChild);
         }
         i++;
-        if (i < arr.length && arr[i] != null && arr[i] != "") {
-            const rightChild = new TreeNode(arr[i]);
+        val = arr[i]?.trim() || "";
+        if (i < arr.length && val != "null" && val != "") {
+            const rightChild = new TreeNode(val);
+            if(currentParent)
             currentParent.right = rightChild
-            queue.push(rightChild);
+            currentParent && queue.push(rightChild);
         }
         i++;
-    }
+        }
     return root;
 }
