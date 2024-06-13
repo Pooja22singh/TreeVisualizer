@@ -3,6 +3,7 @@
     padding: 0;
     margin: 0;
 }
+
 #nodesInput {
     position: absolute;
     top: 1rem;
@@ -12,15 +13,18 @@
     gap: 1rem;
     width: 10rem;
 }
+
 .nodes {
     resize: none;
     width: 100%;
 }
+
 .actionButtons {
     width: 100%;
     display: flex;
     gap: 1rem;
 }
+
 button {
     width: 5rem;
     height: 2rem;
